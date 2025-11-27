@@ -1,0 +1,12 @@
+redis-ha:
+  enabled: false
+controller:
+  replicas: 1
+server:
+  replicas: 1
+  extraArgs:
+    - --insecure
+repoServer:
+  replicas: 1
+applicationSet:
+  replicas: 1
