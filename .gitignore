@@ -1,0 +1,4 @@
+kubeconfigs/*
+mikrotik/*
+talos/*
+wireguard/*
