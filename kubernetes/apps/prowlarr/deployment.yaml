@@ -22,7 +22,7 @@ spec:
         topology.kubernetes.io/zone: Dagobah
       containers:
         - name: prowlarr
-          image: ghcr.io/linuxserver/prowlarr:2.3.0
+          image: lscr.io/linuxserver/prowlarr:2.3.0
           ports:
             - name: http
               containerPort: 9696

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: jellyfin
+  labels:
+    app: radarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: jellyfin
+      labels:
+        app: radarr
+    spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: Dagobah
+      containers:
+        - name: radarr
+          image: lscr.io/linuxserver/radarr:6.1.0-nightly
+          ports:
+            - name: http
+              containerPort: 7878
+          envFrom:
+            - configMapRef:
+                name: common-env
+                optional: true
+          volumeMounts:
+            - name: radarr-config
+              mountPath: /config
+            - name: sonarr-data
+              mountPath: /movies
+              subPath: movies
+            - name: sonarr-data
+              mountPath: /downloads
+              subPath: downloads
+      volumes:
+        - name: radarr-config
+          persistentVolumeClaim:
+            claimName: radarr-config
+        - name: sonarr-data
+          persistentVolumeClaim:
+            claimName: jellyfin-media
