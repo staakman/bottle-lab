@@ -31,18 +31,18 @@ spec:
                 name: common-env
                 optional: true
           volumeMounts:
-            - name: radarr-config
+            - name: config
               mountPath: /config
-            - name: sonarr-data
-              mountPath: /movies
+            - name: data
+              mountPath: /data/movies
               subPath: movies
-            - name: sonarr-data
-              mountPath: /downloads
+            - name: data
+              mountPath: /data/downloads
               subPath: downloads
       volumes:
-        - name: radarr-config
+        - name: config
           persistentVolumeClaim:
             claimName: radarr-config
-        - name: sonarr-data
+        - name: data
           persistentVolumeClaim:
             claimName: jellyfin-media
