@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  namespace: jellyfin
+  labels:
+    app: prowlarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prowlarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: jellyfin
+      labels:
+        app: prowlarr
+    spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: Dagobah
+      containers:
+        - name: prowlarr
+          image: ghcr.io/linuxserver/prowlarr:2.3.0
+          ports:
+            - name: http
+              containerPort: 9696
+          envFrom:
+            - configMapRef:
+                name: common-env
+                optional: true
+          volumeMounts:
+            - name: prowlarr-config
+              mountPath: /config
+      volumes:
+        - name: prowlarr-config
+          persistentVolumeClaim:
+            claimName: prowlarr-config
