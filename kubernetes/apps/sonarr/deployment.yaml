@@ -1,7 +1,7 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: jellyfin
+  name: sonarr
   namespace: jellyfin
 spec:
   replicas: 1
@@ -9,38 +9,39 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: jellyfin
+      app: sonarr
   template:
     metadata:
       namespace: jellyfin
       labels:
-        app: jellyfin
+        app: sonarr
     spec:
       nodeSelector:
         topology.kubernetes.io/zone: Dagobah
       containers:
-        - name: jellyfin
-          image: lscr.io/linuxserver/jellyfin:10.11.4
+        - name: sonarr
+          image: ghcr.io/linuxserver/sonarr:4.0.16
           envFrom:
             - configMapRef:
                 name: common-env
+                optional: true
           ports:
             - name: http
-              containerPort: 8096
+              containerPort: 8989
           volumeMounts:
-            - name: config
+            - name: sonarr-config
               mountPath: /config
-            - name: media
-              mountPath: /data/movies
-              subPath: movies
-            - name: media
-              mountPath: /data/tvshows
-              subPath: tvshows
+            - name: sonarr-data
+              mountPath: /tv
+              subPath: tv
+            - name: sonarr-data
+              mountPath: /downloads
+              subPath: downloads
       volumes:
-        - name: config
+        - name: sonarr-config
           persistentVolumeClaim:
-            claimName: jellyfin-config
-        - name: media
+            claimName: sonarr-config
+        - name: sonarr-data
           persistentVolumeClaim:
             claimName: jellyfin-media
         

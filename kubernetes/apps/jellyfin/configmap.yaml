@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-env
+  namespace: jellyfin
+data:
+  TZ: "Europe/Amsterdam"
+  UMASK: "002"
+  PUID: "1000"
+  PGID: "1000"
