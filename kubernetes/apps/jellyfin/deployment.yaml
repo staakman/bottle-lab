@@ -32,6 +32,8 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+            - name: qsv-render-device
+              mountPath: /dev/dri/renderD128
             - name: data
               mountPath: /data/media/movies
               subPath: movies
@@ -39,6 +41,11 @@ spec:
               mountPath: /data/media/tvshows
               subPath: tv
       volumes:
+        # GPU acceleration for Intel iGPU via QSV
+        - name: qsv-render-device
+          hostPath:
+            path: /dev/dri/renderD128
+            type: CharDevice
         - name: config
           persistentVolumeClaim:
             claimName: jellyfin-config
