@@ -14,7 +14,13 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /jellyfin
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefix: /
       backendRefs:
         - name: jellyfin
           port: 8096
