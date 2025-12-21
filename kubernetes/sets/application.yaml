@@ -4,7 +4,7 @@ metadata:
   name: applications
   namespace: argo
 spec:
-  project: app-of-apps
+  project: default
   source:
     repoURL: https://github.com/staakman/bottle-lab
     path: kubernetes/apps
