@@ -13,10 +13,8 @@ spec:
   template:
     metadata:
       name: '{{ path.basename }}'
-      labels:
-        dev.bottle-lab: application
     spec:
-      project: applications
+      project: default
       source:
         repoURL: https://github.com/staakman/bottle-lab
         targetRevision: HEAD
