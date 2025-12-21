@@ -12,6 +12,7 @@ spec:
           from: All
       protocol: HTTPS
       port: 443
+      hostname: "*.local"
       tls:
         mode: Terminate
         certificateRefs:
@@ -22,5 +23,6 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+      hostname: '*.local'
       port: 80
       protocol: HTTP
