@@ -29,8 +29,9 @@ spec:
             - name: http
               containerPort: 8080
           volumeMounts:
-            - name: config
+            - name: data
               mountPath: /config
+              subPath: sabnzbd-config
             - name: data
               mountPath: /data/downloads
               subPath: downloads
@@ -38,9 +39,6 @@ spec:
               mountPath: /data/incomplete-downloads
               subPath: incomplete-downloads
       volumes:
-        - name: config
-          persistentVolumeClaim:
-            claimName: sabnzbd-config
         - name: data
           persistentVolumeClaim:
             claimName: jellyfin-media

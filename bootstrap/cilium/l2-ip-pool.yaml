@@ -4,8 +4,5 @@ metadata:
   name: cilium-external-ip-pool
 spec:
   blocks:
-    - cidr: "10.0.128.64/26"
-  serviceSelector:
-    matchExpressions:
-      - {key: io.cilium.gateway/owning-gateway, operator: Exists}
-      
+    - cidr: "192.168.1.192/32"
+  serviceSelector: {}

@@ -16,6 +16,8 @@ spec:
       labels:
         app: sonarr
     spec:
+      securityContext:
+        fsGroup: 1000
       nodeSelector:
         topology.kubernetes.io/zone: Dagobah
       containers:
@@ -32,11 +34,8 @@ spec:
             - name: config
               mountPath: /config
             - name: data
-              mountPath: /data/tvshows
-              subPath: tv
-            - name: data
-              mountPath: /data/downloads
-              subPath: downloads
+              mountPath: /data/media/tvshows
+              subPath: tvshows
       volumes:
         - name: config
           persistentVolumeClaim:

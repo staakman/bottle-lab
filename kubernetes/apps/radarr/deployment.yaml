@@ -18,6 +18,8 @@ spec:
       labels:
         app: radarr
     spec:
+      securityContext:
+        fsGroup: 1000
       nodeSelector:
         topology.kubernetes.io/zone: Dagobah
       containers:
@@ -34,11 +36,8 @@ spec:
             - name: config
               mountPath: /config
             - name: data
-              mountPath: /data/movies
+              mountPath: /data/media/movies
               subPath: movies
-            - name: data
-              mountPath: /data/downloads
-              subPath: downloads
       volumes:
         - name: config
           persistentVolumeClaim:
