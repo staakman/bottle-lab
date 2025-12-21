@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: applications
+  namespace: argo
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/staakman/bottle-lab
+        revision: HEAD
+        directories:
+          - path: kubernetes/apps/*
+  template:
+    metadata:
+      name: '{{ path.basename }}'
+      labels:
+        dev.bottle-lab: application
+    spec:
+      project: applications
+      source:
+        repoURL: https://github.com/staakman/bottle-lab
+        targetRevision: HEAD
+        path: '{{ path }}'
+      destination:
+        name: in-cluster
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
