@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: adguard-sync
-  namespace: adguard-sync
+  namespace: adguard
 spec:
   schedule: "*/1 * * * *" # Runs every minute
   successfulJobsHistoryLimit: 3 # Keep last 3 successful jobs
