@@ -5,7 +5,7 @@ metadata:
   namespace: argo
 spec:
   hostnames:
-    - "argocd.local"
+    - "argocd.home"
   parentRefs:
     - name: public-gateway
       namespace: kube-system
