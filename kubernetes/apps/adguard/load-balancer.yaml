@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-dns-lb
+  namespace: adguard
+  annotations:
+    # Explicitly request IP from your pool
+    io.cilium/lb-ip-pool: cilium-external-ip-pool
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 53
+      targetPort: 53
+      protocol: UDP
+      name: dns-udp
+    - port: 53
+      targetPort: 53
+      protocol: TCP
+      name: dns-tcp
+  selector:
+    # Traffic is sent to BOTH primary and replica
+    app: adguard-home

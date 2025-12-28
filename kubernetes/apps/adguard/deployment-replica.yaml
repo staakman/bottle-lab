@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-replica
+  namespace: adguard
+  labels:
+    app: adguard-home
+    role: replica
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adguard-home
+      role: replica
+  template:
+    metadata:
+      labels:
+        app: adguard-home
+        role: replica
+    spec:
+      initContainers:
+      - name: copy-config
+        image: alpine:3.18
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            if [ ! -f /opt/adguardhome/conf/AdGuardHome.yaml ]; then
+              echo "Initializing config..."
+              cp /init/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml
+            else
+              echo "Config exists, skipping initialization."
+            fi
+        volumeMounts:
+        - name: init-config
+          mountPath: /init/AdGuardHome.yaml
+          subPath: AdGuardHome.yaml
+        - name: data
+          mountPath: /opt/adguardhome/conf
+      containers:
+        - name: adguard
+          image: adguard/adguardhome:latest
+          ports:
+            - containerPort: 53
+              protocol: UDP
+            - containerPort: 53
+              protocol: TCP
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /opt/adguardhome/conf
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: adguard-replica-data
+        - name: init-config
+          configMap:
+            name: adguard-init-config
