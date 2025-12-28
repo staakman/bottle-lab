@@ -20,30 +20,10 @@ spec:
                   value: "http://adguard-primary.adguard.svc.cluster.local"
                 - name: ORIGIN_INSECURE_SKIP_VERIFY
                   value: "true"
-                - name: ORIGIN_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: adguard-credentials
-                      key: username
-                - name: ORIGIN_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: adguard-credentials
-                      key: password
                 - name: REPLICA1_URL
                   value: "http://adguard-replica.adguard.svc.cluster.local"
                 - name: REPLICA1_INSECURE_SKIP_VERIFY
                   value: "true"
-                - name: REPLICA1_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: adguard-credentials
-                      key: username
-                - name: REPLICA1_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: adguard-credentials
-                      key: password
                 - name: FEATURES_DNS_REWRITES
                   value: "true"
                 - name: FEATURES_DNS_SERVER_CONFIG

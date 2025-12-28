@@ -10,4 +10,4 @@ resources:
   - services.yaml
   - load-balancer.yaml
   - http-route.yaml
-  # - cron-job.yaml
+  - cron-job.yaml
