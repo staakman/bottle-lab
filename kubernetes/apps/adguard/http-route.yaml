@@ -9,7 +9,7 @@ spec:
     namespace: kube-system
     kind: Gateway
   hostnames:
-  - "adguard.local"
+  - "adguard.home"
   rules:
   - matches:
     - path:
@@ -30,7 +30,7 @@ spec:
     namespace: kube-system
     kind: Gateway
   hostnames:
-  - "adguard-replica.local"
+  - "adguard-replica.home"
   rules:
   - matches:
     - path:

@@ -5,7 +5,7 @@ metadata:
   namespace: jellyfin
 spec:
   hostnames:
-    - "radarr.local"
+    - "radarr.home"
   parentRefs:
     - name: public-gateway
       namespace: kube-system
