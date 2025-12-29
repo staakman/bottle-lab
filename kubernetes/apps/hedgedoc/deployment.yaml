@@ -42,6 +42,11 @@ spec:
             secretKeyRef:
               name: hedgedoc-db-app       # Secret created by CNPG
               key: password
+        - name: CMD_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: hedgedoc-db-app       # Secret created by CNPG
+              key: password
         - name: CMD_DOMAIN
           value: "hedgedoc.home"   
         - name: CMD_PROTOCOL_USESSL
@@ -49,4 +54,7 @@ spec:
         - name: CMD_URL_ADDPORT
           value: "false"
         - name: CMD_SESSION_SECRET
-          value: "ArE7nz0qwE2XXv7MWW08A7KnQhHYv2wXw"
+          valueFrom:
+            secretKeyRef:
+              name: hedgedoc-conf
+              key: CMD_SESSION_SECRET

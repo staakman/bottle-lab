@@ -13,3 +13,8 @@ resources:
 
 commonAnnotations:
   argocd.argoproj.io/sync-options: ServerSideApply=true
+
+secretGenerator:
+  - name: hedgedoc-conf
+    literals:
+      - CMD_SESSION_SECRET=ArE7nz0qwE2XXv7MWW08A7KnQhHYv2wXw
