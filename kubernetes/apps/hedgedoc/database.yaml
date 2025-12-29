@@ -1,0 +1,67 @@
+# 1. The Credentials Secret
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: s3-backup-creds
+#  namespace: cnpg-system
+#type: Opaque
+#stringData:
+#  ACCESS_KEY_ID: "your-access-key"
+#  ACCESS_SECRET_KEY: "your-secret-key"
+#---
+
+# 2. The Updated Cluster
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: hedgedoc-db
+  namespace: hedgedoc
+spec:
+  instances: 3
+  
+  storage:
+    size: 5Gi
+    storageClass: longhorn
+
+#  backup:
+#    barmanObjectStore:
+#      destinationPath: s3://my-postgres-backups/
+#      endpointURL: https://minio.example.com  # Remove if using AWS S3
+#      s3Credentials:
+#        accessKeyId:
+#          name: s3-backup-creds
+#          key: ACCESS_KEY_ID
+#        secretAccessKey:
+#          name: s3-backup-creds
+#          key: ACCESS_SECRET_KEY
+#      # Retention policy: Keep backups for 30 days
+#      retentionPolicy: "30d"
+
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          "cnpg.io/cluster": hedgedoc-db
+
+  postgresql:
+    parameters:
+      max_connections: "100"
+      shared_buffers: "256MB"
+
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+
+#---
+#apiVersion: postgresql.cnpg.io/v1
+#kind: ScheduledBackup
+#metadata:
+#  name: daily-backup
+#  namespace: cnpg-system
+#spec:
+#  schedule: "0 0 2 * * *" # Every day at 2:00 AM
+#  cluster:
+#    name: hedgedoc-db
