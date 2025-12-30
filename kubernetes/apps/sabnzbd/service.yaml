@@ -3,9 +3,6 @@ kind: Service
 metadata:
   name: sabnzbd
   namespace: jellyfin
-  annotations:
-    external-mdns.blakecovarrubias.com/hostnames: foo
-    external-mdns.blakecovarrubias.com/without-namespace: "true"
 spec:
   type: ClusterIP
   selector:

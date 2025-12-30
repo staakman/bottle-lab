@@ -34,8 +34,8 @@ spec:
             - name: config
               mountPath: /config
             - name: data
-              mountPath: /data/media/tvshows
-              subPath: tvshows
+              mountPath: /data
+              subPath: data
       volumes:
         - name: config
           persistentVolumeClaim:
