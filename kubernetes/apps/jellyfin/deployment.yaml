@@ -39,7 +39,7 @@ spec:
               subPath: movies
             - name: data
               mountPath: /data/media/tvshows
-              subPath: tv
+              subPath: tvshows
       volumes:
         # GPU acceleration for Intel iGPU via QSV
         - name: qsv-render-device
