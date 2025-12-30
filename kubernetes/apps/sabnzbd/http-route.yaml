@@ -5,7 +5,7 @@ metadata:
   namespace: jellyfin
 spec:
   hostnames:
-    - "sabnzbd.home"
+    - "nzb.home"
   parentRefs:
     - name: public-gateway
       namespace: kube-system
