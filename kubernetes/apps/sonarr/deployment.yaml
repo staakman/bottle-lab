@@ -35,7 +35,6 @@ spec:
               mountPath: /config
             - name: data
               mountPath: /data
-              subPath: data
       volumes:
         - name: config
           persistentVolumeClaim:
