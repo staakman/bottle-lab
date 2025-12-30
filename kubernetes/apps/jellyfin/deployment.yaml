@@ -35,9 +35,7 @@ spec:
             - name: qsv-render-device
               mountPath: /dev/dri/renderD128
             - name: data
-              mountPath: /data/media/movies
-            - name: data
-              mountPath: /data/media/tvshows
+              mountPath: /data
       volumes:
         # GPU acceleration for Intel iGPU via QSV
         - name: qsv-render-device
