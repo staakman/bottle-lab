@@ -1,0 +1,52 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: docmost-db
+  namespace: docmost
+spec:
+  instances: 2
+  
+  storage:
+    size: 5Gi
+    storageClass: longhorn
+
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://docmost-backup/
+      endpointURL: https://hel1.your-objectstorage.com
+      s3Credentials:                                          # secret.yaml is saved in Proton Pass!
+        accessKeyId:
+          name: s3-backup-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-backup-creds
+          key: ACCESS_SECRET_KEY
+    retentionPolicy: "3m"                                    # Retention policy: Keep backups for 12 months
+
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: "kubernetes.io/hostname"
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          "cnpg.io/cluster": docmost-db
+
+  postgresql:
+    parameters:
+      max_connections: "100"
+      shared_buffers: "256MB"
+
+  bootstrap:
+    initdb:
+      database: docmost
+      owner: docmost
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: docmost-daily-backup
+  namespace: docmost
+spec:
+  schedule: "0 0 2 * * *"                             # Every day at 2:00 AM
+  cluster:
+    name: docmost-db
