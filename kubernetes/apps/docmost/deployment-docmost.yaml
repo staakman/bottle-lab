@@ -22,7 +22,7 @@ spec:
         - name: docmost
           image: docmost/docmost:latest
           ports:
-            - containerPort: 3001
+            - containerPort: 3000
           volumeMounts:
             - name: storage
               mountPath: /app/data/storage
