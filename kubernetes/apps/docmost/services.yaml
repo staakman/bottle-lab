@@ -18,7 +18,7 @@ metadata:
 spec:
   type: ClusterIP # Change to LoadBalancer if you don't use Ingress
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 3001
+      targetPort: 3001
   selector:
     app: docmost

@@ -21,7 +21,7 @@ spec:
         secretAccessKey:
           name: s3-backup-creds
           key: ACCESS_SECRET_KEY
-    retentionPolicy: "12m"                                    # Retention policy: Keep backups for 12 months
+    retentionPolicy: "3m"                                    # Retention policy: Keep backups for 12 months
 
   topologySpreadConstraints:
     - maxSkew: 1
@@ -44,7 +44,7 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: daily-backup
+  name: hedgedoc-daily-backup
   namespace: hedgedoc
 spec:
   schedule: "0 0 2 * * *"                             # Every day at 2:00 AM
