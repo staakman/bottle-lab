@@ -5,7 +5,7 @@ metadata:
   namespace: longhorn-system
 spec:
   hostnames:
-    - "longhorn.local"
+    - "longhorn.home"
   parentRefs:
     - name: public-gateway
       namespace: kube-system
