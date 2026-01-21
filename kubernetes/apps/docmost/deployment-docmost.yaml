@@ -13,6 +13,10 @@ spec:
       labels:
         app: docmost
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       initContainers:
         # Optional: Wait for DB to be ready
         - name: wait-for-db
