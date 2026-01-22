@@ -7,7 +7,9 @@ spec:
   hostnames:
     - "hedgedoc.home"
   parentRefs:
-    - name: public-gateway
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: public-gateway
       namespace: kube-system
       kind: Gateway
   rules:
@@ -16,5 +18,8 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: hedgedoc
+        - group: ''
+          kind: Service
+          name: hedgedoc
           port: 3000
+          weight: 1
