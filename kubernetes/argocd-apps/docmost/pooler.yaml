@@ -5,7 +5,7 @@ metadata:
   namespace: docmost
 spec:
   cluster:
-    name: docmost-db-restored
+    name: docmost-db
   instances: 3                  # Highly Available pooler
   type: rw                      # Points to the Primary (Read/Write)
   
