@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/staakman/bottle-lab
         revision: HEAD
         directories:
-          - path: kubernetes/apps/*
+          - path: kubernetes/argocd-apps/*
   template:
     metadata:
       name: '{{ path.basename }}'
