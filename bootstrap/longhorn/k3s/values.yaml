@@ -1,0 +1,24 @@
+### 1. Persistence & Resilience
+
+persistence:
+  defaultClass: true
+  defaultClassReplicaCount: 3 # Keeps 3 copies of data (1 on each Mini PC)
+  reclaimPolicy: Retain       # Don't delete data if PVC is deleted
+
+### 2. System Settings
+
+defaultSettings:
+  
+  # CRITICAL: Use the standard Linux path, not the Talos path
+  defaultDataPath: /var/lib/longhorn
+  
+  # Optimization for K3s/OpenSUSE
+  createDefaultDiskLabeledNodes: true
+  
+  # Backup Target (Optional: Set this later if you have NFS/S3)
+  # backupTarget: "nfs://192.168.1.5:/"
+
+### 3. Ingress / Gateway API
+
+ingress:
+  enabled: false

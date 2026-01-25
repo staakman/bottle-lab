@@ -1,0 +1,46 @@
+# 1. K3s Runtime Settings
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 6443
+socketPath: /run/k3s/containerd/containerd.sock
+
+# 2. Networking Engine (Kube-Proxy Replacement)
+kubeProxyReplacement: true
+l2announcements:
+  enabled: true
+l2NeighDiscovery:
+  enabled: true
+
+# 3. Interface Selection
+devices: "enp2s0"
+
+# 4. IPAM (Updated to match your text's recommendation)
+ipam:
+  mode: "cluster-pool"
+  operator:
+    clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
+
+# 5. Gateway API
+gatewayAPI:
+  enabled: true
+  enableAlpn: true
+  enableAppProtocol: true
+
+# 6. Security Context (Standard Linux Capabilities)
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
