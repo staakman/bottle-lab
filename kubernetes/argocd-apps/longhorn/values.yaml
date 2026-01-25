@@ -1,6 +1,0 @@
-persistence:
-  # Recommended for home use (balance of space vs safety)
-  defaultClassReplicaCount: 2 
-
-defaultSettings:
-  defaultDataPath: /var/mnt/storage
