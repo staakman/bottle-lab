@@ -1,4 +1,16 @@
 apiVersion: postgresql.cnpg.io/v1
+kind: ImageCatalog
+metadata:
+  name: affine-catalog
+  namespace: affine
+spec:
+  images:
+    - image: pgvector/pgvector:pg16
+      major: 16
+
+---
+# 2. Define the Cluster
+apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: affine-db
@@ -6,13 +18,14 @@ metadata:
 spec:
   instances: 3
 
-  # imageName: pgvector/pgvector:pg16
+  # Reference the image and the catalog
+  imageName: pgvector/pgvector:pg16
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
-    kind: ClusterImageCatalog
-    name: pgvector-catalog
+    kind: ImageCatalog
+    name: affine-catalog
   
-  # set user and group id
+  # User 999 is required for pgvector image
   postgresUID: 999
   postgresGID: 999
   
@@ -20,6 +33,7 @@ spec:
     size: 5Gi
     storageClass: longhorn
 
+  # Backups (Preserved from your previous config)
   backup:
     barmanObjectStore:
       destinationPath: s3://affine-backup/
@@ -37,7 +51,7 @@ spec:
     parameters:
       max_connections: "100"
       shared_buffers: "256MB"
-      shared_preload_libraries: "vector"
+      # REMOVED: shared_preload_libraries (Managed by CNPG operator)
 
   bootstrap:
     initdb:

@@ -6,7 +6,7 @@ resources:
   - database.yaml
   - deployment-affine.yaml
   - deployment-redis.yaml
-  - image-catalog.yaml
+  # - image-catalog.yaml
   - http-route.yaml
   - service-affine.yaml
   - service-redis.yaml
