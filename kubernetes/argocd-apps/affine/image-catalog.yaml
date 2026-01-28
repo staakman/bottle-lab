@@ -5,4 +5,4 @@ metadata:
 spec:
   images:
     - image: pgvector/pgvector:pg16
-      majorVersion: 16
+      major: 16

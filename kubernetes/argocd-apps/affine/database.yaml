@@ -6,10 +6,10 @@ metadata:
 spec:
   instances: 3
 
+  imageName: pgvector/pgvector:pg16
   imageCatalogRef:
     kind: ClusterImageCatalog
     name: pgvector-catalog
-    majorVersion: 16
   
   # set user and group id
   postgresUID: 999
