@@ -8,6 +8,7 @@ spec:
 
   imageName: pgvector/pgvector:pg16
   imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog
     name: pgvector-catalog
   
