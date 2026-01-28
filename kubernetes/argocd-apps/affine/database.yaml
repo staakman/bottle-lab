@@ -11,8 +11,6 @@ spec:
     size: 5Gi
     storageClass: longhorn
 
-  I've kept your backup config pattern but commented it out.
-  Uncomment and fill in if you want immediate backups.
   backup:
     barmanObjectStore:
       destinationPath: s3://affine-backup/
