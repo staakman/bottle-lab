@@ -1,0 +1,37 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: affine-db
+  namespace: affine
+spec:
+  instances: 3
+  imageName: pgvector/pgvector:pg16 # Critical: Affine needs pgvector
+  
+  storage:
+    size: 5Gi
+    storageClass: longhorn
+
+  I've kept your backup config pattern but commented it out.
+  Uncomment and fill in if you want immediate backups.
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://affine-backup/
+      endpointURL: https://hel1.your-objectstorage.com
+      s3Credentials:
+        accessKeyId:
+          name: s3-backup-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-backup-creds
+          key: ACCESS_SECRET_KEY
+    retentionPolicy: "3m"
+
+  postgresql:
+    parameters:
+      max_connections: "100"
+      shared_buffers: "256MB"
+
+  bootstrap:
+    initdb:
+      database: affine
+      owner: affine
