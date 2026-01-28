@@ -5,7 +5,11 @@ metadata:
   namespace: affine
 spec:
   instances: 3
-  imageName: pgvector/pgvector:pg16 # Critical: Affine needs pgvector
+
+  imageCatalogRef:
+    kind: ClusterImageCatalog
+    name: pgvector-catalog
+    majorVersion: 16
   
   # set user and group id
   postgresUID: 999
@@ -32,8 +36,11 @@ spec:
     parameters:
       max_connections: "100"
       shared_buffers: "256MB"
+      shared_preload_libraries: "vector"
 
   bootstrap:
     initdb:
       database: affine
       owner: affine
+      postInitSQL:
+      - "CREATE EXTENSION IF NOT EXISTS vector;"

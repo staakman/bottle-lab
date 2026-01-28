@@ -1,0 +1,8 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ClusterImageCatalog
+metadata:
+  name: pgvector-catalog
+spec:
+  images:
+    - image: pgvector/pgvector:pg16
+      majorVersion: 16
