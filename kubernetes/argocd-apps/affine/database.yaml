@@ -19,7 +19,6 @@ spec:
   instances: 3
 
   # Reference the image and the catalog
-  imageName: pgvector/pgvector:pg16
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ImageCatalog
