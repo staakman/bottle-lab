@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: affine
-        image: ghcr.io/toeverything/affine-graphql:stable
+        image: ghcr.io/toeverything/affine:stable
         env:
         - name: NODE_ENV
           value: "production"
