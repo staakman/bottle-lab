@@ -5,20 +5,16 @@ metadata:
   namespace: affine
 spec:
   hostnames:
-  - affine.home  # Change this to your desired domain
+    - affine.home
   parentRefs:
-  - group: gateway.networking.k8s.io
-    kind: Gateway
-    name: public-gateway
-    namespace: kube-system
+    - kind: Gateway
+      name: public-gateway
+      namespace: kube-system
   rules:
-  - backendRefs:
-    - group: ""
-      kind: Service
-      name: affine
-      port: 3010
-      weight: 1
-    matches:
-    - path:
-        type: PathPrefix
-        value: /
+    - backendRefs:
+        - name: affine
+          port: 3010
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

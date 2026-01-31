@@ -1,50 +1,33 @@
----
-# 2. Define the Cluster
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: affine-db
   namespace: affine
 spec:
-  instances: 3
-
-  # Reference the image and the catalog
-  imageCatalogRef:
-    apiGroup: postgresql.cnpg.io
-    kind: ImageCatalog
-    name: affine-catalog
-  
-  # User 999 is required for pgvector image
-  postgresUID: 999
-  postgresGID: 999
-  
+  instances: 2
+  # CNPG typically creates a secret named <cluster-name>-app containing credentials
   storage:
     size: 5Gi
     storageClass: longhorn
-
-  # Backups (Preserved from your previous config)
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://affine-backup/
-      endpointURL: https://hel1.your-objectstorage.com
-      s3Credentials:
-        accessKeyId:
-          name: s3-backup-creds
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: s3-backup-creds
-          key: ACCESS_SECRET_KEY
-    retentionPolicy: "3m"
-
   postgresql:
     parameters:
       max_connections: "100"
-      shared_buffers: "256MB"
-      # REMOVED: shared_preload_libraries (Managed by CNPG operator)
-
+      shared_buffers: 256MB
   bootstrap:
     initdb:
       database: affine
       owner: affine
-      postInitSQL:
-      - "CREATE EXTENSION IF NOT EXISTS vector;"
+---
+# This resource explicitly enables the pgvector extension
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: affine-db-config
+  namespace: affine
+spec:
+  name: affine
+  owner: affine
+  cluster:
+    name: affine-db
+  extensions:
+    - name: vector
