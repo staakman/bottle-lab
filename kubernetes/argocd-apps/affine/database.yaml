@@ -67,3 +67,13 @@ spec:
     name: affine-db
   extensions:
     - name: vector
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: affine-daily-backup
+  namespace: affine
+spec:
+  schedule: "0 0 2 * * *"                             # Every day at 2:00 AM
+  cluster:
+    name: affine-db
