@@ -13,6 +13,21 @@ spec:
     parameters:
       max_connections: "100"
       shared_buffers: 256MB
+  backup:
+    barmanObjectStore:
+      # Replace 'my-affine-bucket' with your actual bucket name
+      destinationPath: s3://affine-backups/
+      # Hetzner Endpoint (fsn1, nbg1, or hel1)
+      endpointURL: https://hel1.your-objectstorage.com
+      s3Credentials:
+        accessKeyId:
+          name: s3-backup-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-backup-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: gzip
   bootstrap:
     initdb:
       database: affine
