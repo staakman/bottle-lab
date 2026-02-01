@@ -28,10 +28,27 @@ spec:
           key: ACCESS_SECRET_KEY
       wal:
         compression: gzip
+  
   bootstrap:
-    initdb:
-      database: affine
-      owner: affine
+    recovery:
+      source: old-cluster-backup
+      recoveryTarget:
+        # Restore to the latest available data
+        targetTime: "2030-01-01T00:00:00Z" 
+  # Define where to look for the OLD data
+  externalClusters:
+    - name: old-cluster-backup
+      barmanObjectStore:
+        destinationPath: s3://affine-backup/
+        endpointURL: https://hel1.your-objectstorage.com
+        s3Credentials:
+          accessKeyId:
+            name: s3-backup-creds
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: s3-backup-creds
+            key: ACCESS_SECRET_KEY
+
 ---
 # This resource explicitly enables the pgvector extension
 apiVersion: postgresql.cnpg.io/v1
