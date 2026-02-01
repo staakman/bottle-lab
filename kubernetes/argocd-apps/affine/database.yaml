@@ -35,10 +35,12 @@ spec:
       recoveryTarget:
         # Restore to the latest available data
         targetTime: "2030-01-01T00:00:00Z" 
+
   # Define where to look for the OLD data
   externalClusters:
     - name: old-cluster-backup
       barmanObjectStore:
+        serverName: affine-db
         destinationPath: s3://affine-backup/
         endpointURL: https://hel1.your-objectstorage.com
         s3Credentials:
