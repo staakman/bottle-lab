@@ -37,22 +37,22 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: affine-db-app
+                  name: affine-db-creds
                   key: username
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: affine-db-app
+                  name: affine-db-creds
                   key: password
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: affine-db-app
+                  name: affine-db-creds
                   key: host
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: affine-db-app
+                  name: affine-db-creds
                   key: dbname
             # Construct the connection string manually as Affine expects
             - name: DATABASE_URL
