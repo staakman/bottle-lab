@@ -32,9 +32,6 @@ spec:
   bootstrap:
     recovery:
       source: old-cluster-backup
-      recoveryTarget:
-        # Restore to the latest available data
-        targetTime: "2030-01-01T00:00:00Z" 
 
   # Define where to look for the OLD data
   externalClusters:
