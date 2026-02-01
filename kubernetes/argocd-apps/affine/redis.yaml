@@ -27,6 +27,14 @@ spec:
     spec:
       containers:
         - image: redis:7.2-alpine
+          healthcheck:
+            interval: 10s
+            retries: 5
+            test:
+              - CMD
+              - redis-cli
+              - ping
+            timeout: 5s
           name: redis
           ports:
             - containerPort: 6379
