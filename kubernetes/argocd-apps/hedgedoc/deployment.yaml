@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hedgedoc
+  namespace: hedgedoc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hedgedoc
+  template:
+    metadata:
+      labels:
+        app: hedgedoc
+    spec:
+      containers:
+      - name: hedgedoc
+        image: quay.io/hedgedoc/hedgedoc:1.10.5
+        ports:
+        - containerPort: 3000
+        env:
+        - name: CMD_DB_DIALECT
+          value: "postgres"
+        - name: CMD_DB_HOST
+          value: "hedgedoc-pooler"        # Pooler
+        - name: CMD_DB_PORT
+          value: "5432"
+        - name: CMD_DB_DATABASE
+          value: hedgedoc-db
+        - name: CMD_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: hedgedoc-db-creds
+              key: username
+        - name: CMD_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: hedgedoc-db-creds
+              key: username
+        - name: CMD_DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: hedgedoc-db-creds
+              key: password
+        - name: CMD_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: hedgedoc-db-creds
+              key: password
+        - name: CMD_DOMAIN
+          value: "hedgedoc.home"   
+        - name: CMD_PROTOCOL_USESSL
+          value: "false"
+        - name: CMD_URL_ADDPORT
+          value: "false"
+        - name: CMD_SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: hedgedoc-conf
+              key: CMD_SESSION_SECRET
