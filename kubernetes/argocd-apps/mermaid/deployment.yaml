@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mermaid-live
+  namespace: mermaid
+  labels:
+    app: mermaid-live
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mermaid-live
+  template:
+    metadata:
+      labels:
+        app: mermaid-live
+    spec:
+      containers:
+      - name: mermaid-live
+        image: ghcr.io/mermaid-js/mermaid-live-editor:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
