@@ -1,0 +1,8 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Backup
+metadata:
+  generateName: hedgedoc-manual-test-
+  namespace: hedgedoc
+spec:
+  cluster:
+    name: hedgedoc-db
